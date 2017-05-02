@@ -3,7 +3,7 @@ var name;
 var connectedUser; 
 
 //connecting to our signaling server 
-var conn = new WebSocket('ws://192.168.11.61:9090'); 
+var conn = new WebSocket('ws://localhost:9090'); 
 
 conn.onopen = function () { 
    console.log("Connected to the signaling server");
@@ -104,6 +104,12 @@ function handleLogin(success) {
       }; 
       yourConn = new webkitRTCPeerConnection(configuration); 
       // Setup ice handling 
+      yourConn.oniceconnectionstatechange = function(event) {
+            console.log('formm')
+       var state = yourConn.iceConnectionState;
+       console.log(state);
+      // Handle the failure
+      };
       yourConn.onicecandidate = function (event) { 
          if (event.candidate) { 
             send({ 
